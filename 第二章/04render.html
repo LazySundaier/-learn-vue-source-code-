@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+<script>
+  const vnode = {
+    type: 'div',
+    props: {
+      class: 'test'
+    },
+    children: 'Hello World'
+  }
+
+  function render(vnode) {
+    const ele = document.createElement(vnode.type)
+    ele.className = vnode.props.class
+    ele.innerHTML = vnode.children
+    document.body.appendChild(ele)
+  }
+  render(vnode)
+</script>
+
+</html>
