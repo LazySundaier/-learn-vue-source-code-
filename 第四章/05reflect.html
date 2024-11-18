@@ -1,0 +1,25 @@
+<script>
+  const p1 = {
+    lastName: '张',
+    firstName: '三',
+    //get 标记的方法会在访问 fullName 时被调用
+    get fullName() {
+      return this.lastName + this.firstName
+    }
+  }
+
+  const p2 = {
+    lastName: '李',
+    firstName: '四',
+    get fullName() {
+      return this.lastName + this.firstName
+    }
+  }
+
+  console.log(p1.fullName);
+  console.log(Reflect.get(p1, 'fullName'));
+  //第三个参数是 this 对象
+  console.log(Reflect.get(p1, 'fullName', p2));
+  
+  
+</script>

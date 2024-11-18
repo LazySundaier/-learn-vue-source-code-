@@ -1,0 +1,27 @@
+<script>
+  let quantity = 2
+  let project = {
+    price: 10,
+    quantity: quantity
+  }
+  function effect() {
+    total = project.price * project.quantity
+  }
+  let total = 0
+
+  
+  console.log(`总价格:${total}`)
+
+  Object.defineProperty(project, 'quantity', {
+    get() {
+      return quantity
+    },
+    set(value) {
+      quantity = value
+      effect()
+    }
+  })
+
+  project.quantity = 3
+  console.log(`总价格:${total}`)
+</script>

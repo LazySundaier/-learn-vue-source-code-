@@ -1,0 +1,24 @@
+<script>
+  let product = {
+    price: 10,
+    quantity: 2
+  }
+
+  function effect() {
+    total = proxyProduct.price * proxyProduct.quantity
+  }
+
+  const proxyProduct = new Proxy(product, {
+    set(target, key, value) {
+      target[key] = value
+      effect()
+      return true
+    },
+    get(target, key) {
+      return target[key]
+    }
+  })
+
+  let total = 0
+
+</script>

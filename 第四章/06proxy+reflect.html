@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+<img src="./proxy+reflect的原理.png" alt="">
+</body>
+<script>
+  const p1 = {
+    lastName: '张',
+    firstName: '三',
+    //get 标记的方法会在访问 fullName 时被调用
+    get fullName() {
+      return this.lastName + this.firstName
+    }
+  }
+
+  const proxy = new Proxy(p1, {
+    get(target, key, receiver) {
+      console.log(receiver, key);
+      // return target[key]
+      //通过receiver改变this指向,使得this指向proxy
+      return Reflect.get(target, key, receiver)
+    }
+  })
+
+  console.log(proxy.fullName);  
+</script>
+</html>
