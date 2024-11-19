@@ -1,0 +1,15 @@
+<script>
+  // 创建一个对象
+  let obj = {
+    name: 'John'
+  }
+
+  // 创建一个WeakMap实例
+  const map = new WeakMap()
+  
+  // 将对象作为键，字符串作为值存储在WeakMap中
+  map.set(obj, '第一个obj')
+
+  // 将对象置为null，原对象会被垃圾回收机制回收
+  obj = null
+</script>

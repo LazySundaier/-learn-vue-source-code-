@@ -1,1 +1,1 @@
-console.log('Vue package');
+export { reactive } from '@vue/reactivity'
