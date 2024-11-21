@@ -1,13 +1,37 @@
 var Vue = (function (exports) {
     'use strict';
 
+    var targetMap = new WeakMap();
+    //这个函数 effect 接受一个函数 fn 作为参数，并且 fn 返回一个类型为 T 的值
+    function effect(fn) {
+        var _effect = new ReactiveEffect(fn);
+        _effect.run();
+    }
+    var activeEffect;
+    var ReactiveEffect = /** @class */ (function () {
+        function ReactiveEffect(fn) {
+            this.fn = fn;
+        }
+        ReactiveEffect.prototype.run = function () {
+            activeEffect = this;
+            return this.fn();
+        };
+        return ReactiveEffect;
+    }());
     /**
      * 收集依赖
      * @param target
      * @param key
      */
     function track(target, key) {
-        console.log('track', target, key);
+        if (!activeEffect)
+            return;
+        var depMap = targetMap.get(target);
+        if (!depMap) {
+            targetMap.set(target, (depMap = new Map()));
+        }
+        depMap.set(key, activeEffect);
+        console.log(targetMap);
     }
     /**
      * 触发依赖
@@ -59,6 +83,7 @@ var Vue = (function (exports) {
         return proxy;
     }
 
+    exports.effect = effect;
     exports.reactive = reactive;
 
     return exports;
